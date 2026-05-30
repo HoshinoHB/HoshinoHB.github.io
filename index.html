@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HoshinoHB的粉丝墙</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft Yahei", sans-serif;
+            background: linear-gradient(135deg, #fff0f9 0%, #ffe6f7 50%, #fff5fb 100%);
+            min-height: 100vh;
+        }
+        .title {
+            color: #f088dd;
+            text-shadow: 0 3px 6px #ffccefff;
+            letter-spacing: 2px;
+        }
+        .up-main {
+            background: linear-gradient(135deg, #ffbbee, #ee99ee);
+            box-shadow: 0 8px 25px rgba(240, 136, 221, 0.35);
+        }
+        .bili-box {
+            background: linear-gradient(135deg, #ff99ee 0%, #ff88dd 100%);
+            border-radius: 36px;
+            box-shadow: 0 12px 35px rgba(255, 136, 221, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .douyin-box {
+            background: linear-gradient(135deg, #111111 0%, #000000 100%);
+            border-radius: 36px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .expand-btn {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+            color: #fff;
+            font-weight: bold;
+            user-select: none;
+        }
+        .expand-btn:hover {
+            transform: scale(1.3);
+        }
+        .fans-grid {
+            display: grid;
+            gap: 10px;
+            padding: 24px;
+            width: 100%;
+            height: 100%;
+        }
+        .fans-card {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.25s all ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .fans-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+        }
+        .fans-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* 全屏模式样式 */
+        .fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            border-radius: 0 !important;
+            z-index: 9999 !important;
+            margin: 0 !important;
+            padding: 20px !important;
+        }
+        .fullscreen .fans-grid {
+            padding: 40px;
+            gap: 12px;
+        }
+        .fullscreen .expand-btn {
+            top: 24px;
+            right: 32px;
+            font-size: 28px;
+        }
+        /* PC端布局 */
+        @media (min-width: 768px) {
+            .platform-wrap {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 50px;
+                padding: 30px 60px;
+            }
+            .bili-box, .douyin-box {
+                min-height: 650px;
+            }
+            .fans-grid {
+                grid-template-columns: repeat(8, 1fr);
+                grid-template-rows: repeat(8, 1fr);
+            }
+            .page-indicator {
+                display: block;
+            }
+        }
+        /* 移动端布局 */
+        @media (max-width: 767px) {
+            .platform-wrap {
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+                padding: 20px 25px;
+            }
+            .bili-box, .douyin-box {
+                min-height: 450px;
+            }
+            .fans-grid {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(4, 1fr);
+            }
+            .page-indicator {
+                display: none;
+            }
+        }
+        .page-indicator {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #666;
+        }
+        .link-text {
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .link-text:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #777;
+            font-size: 15px;
+        }
+        footer a {
+            color: #f088dd;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- 大标题 -->
+    <h1 class="title text-[clamp(2.5rem,6vw,4rem)] font-bold text-center py-8">
+        HoshinoHB的粉丝墙
+    </h1>
+
+    <!-- UP主头像 -->
+    <div class="flex justify-center mb-8">
+        <div class="up-main w-44 h-44 rounded-full flex items-center justify-center">
+            <img src="up-avatar.png" alt="UP主" class="w-36 h-36 rounded-full object-cover">
+        </div>
+    </div>
+
+    <!-- 平台跳转链接 -->
+    <div class="flex justify-around max-w-5xl mx-auto mb-12 px-8">
+        <a href="B站主页链接" target="_blank" class="https://b23.tv/Ck9wLL1">UP主B站</a>
+        <a href="抖音主页链接" target="_blank" class="https://v.douyin.com/EWF0B9tiWWU/">UP主抖音</a>
+    </div>
+
+    <!-- 两大平台粉丝区 -->
+    <div class="platform-wrap">
+        <!-- B站粉色区块 -->
+        <div class="bili-box relative">
+            <div class="expand-btn">↖↘</div>
+            <div class="fans-grid bili-fans-grid"></div>
+        </div>
+
+        <!-- 抖音黑色区块 -->
+        <div class="douyin-box relative">
+            <div class="expand-btn">↖↘</div>
+            <div class="fans-grid douyin-fans-grid"></div>
+        </div>
+    </div>
+
+    <!-- PC端页码指示器 -->
+    <div class="page-indicator">当前页：<span id="pageNum">1</span> / <span id="totalPage">2</span></div>
+
+    <!-- 底部版权 -->
+    <footer>© HoshinoHB 2026 | <a href="https://github.com" target="_blank">GitHub提供服务</a></footer>
+
+    // ============= 两个平台 完全独立粉丝配置 =============
+// B站专属粉丝列表
+const biliFansList = [
+    {img:"https://picsum.photos/200", link:"#"},
+    {img:"https://picsum.photos/201", link:"#"},
+];
+
+// 抖音专属粉丝列表
+const douyinFansList = [
+    {img:"https://picsum.photos/300", link:"#"},
+    {img:"https://picsum.photos/301", link:"#"},
+];
+
+let biliPage = 1;
+let douyinPage = 1;
+const pcMax = 64;
+const mobileMax = 16;
+
+// 单独渲染B站粉丝
+function renderBili() {
+    const isMobile = window.innerWidth < 768;
+    const perPage = isMobile ? mobileMax : pcMax;
+    const start = (biliPage-1)*perPage;
+    const end = start + perPage;
+    const show = biliFansList.slice(start, end);
+
+    const box = document.querySelector('.bili-fans-grid');
+    box.innerHTML = '';
+    show.forEach(fan=>{
+        const a = document.createElement('a');
+        a.className = 'fans-card';
+        a.href = fan.link;
+        a.target = '_blank';
+        a.innerHTML = `<img src="${fan.img}">`;
+        box.append(a);
+    })
+}
+
+// 单独渲染抖音粉丝
+function renderDouyin() {
+    const isMobile = window.innerWidth < 768;
+    const perPage = isMobile ? mobileMax : pcMax;
+    const start = (douyinPage-1)*perPage;
+    const end = start + perPage;
+    const show = douyinFansList.slice(start, end);
+
+    const box = document.querySelector('.douyin-fans-grid');
+    box.innerHTML = '';
+    show.forEach(fan=>{
+        const a = document.createElement('a');
+        a.className = 'fans-card';
+        a.href = fan.link;
+        a.target = '_blank';
+        a.innerHTML = `<img src="${fan.img}">`;
+        box.append(a);
+    })
+}
+
+// 左右滑动翻页
+let startX = 0;
+document.addEventListener('touchstart',e=>startX = e.touches[0].screenX);
+document.addEventListener('touchend',e=>{
+    const endX = e.changedTouches[0].screenX;
+    const move = startX - endX;
+    const isMobile = window.innerWidth <768;
+    if(isMobile) return;
+
+    // 左滑翻下一页
+    if(move >60){
+        if(biliPage < Math.ceil(biliFansList.length/(isMobile?16:64))) biliPage++;
+        if(douyinPage < Math.ceil(douyinFansList.length/(isMobile?16:64))) douyinPage++;
+    }
+    // 右滑翻上一页
+    if(move <-60){
+        if(biliPage>1) biliPage--;
+        if(douyinPage>1) douyinPage--;
+    }
+    renderBili();renderDouyin();
+    updatePageNum();
+})
+
+// 更新页码
+function updatePageNum(){
+    const isMobile = window.innerWidth <768;
+    const totalBili = Math.ceil(biliFansList.length/(isMobile?16:64));
+    const totalDouyin = Math.ceil(douyinFansList.length/(isMobile?16:64));
+    document.getElementById('pageNum').innerText = `${biliPage} / ${totalBili}`;
+    document.getElementById('totalPage').innerText = `${douyinPage} / ${totalDouyin}`;
+}
+
+// 全屏放大切换
+document.querySelectorAll('.expand-btn').forEach(btn=>{
+    btn.onclick = function(){
+        const wrap = this.parentElement;
+        wrap.classList.toggle('fullscreen');
+        this.innerText = wrap.classList.contains('fullscreen') ? '✕' : '↖↘';
+        document.body.style.overflow = wrap.classList.contains('fullscreen')?'hidden':'';
+    }
+})
+
+// 页面加载自动渲染
+window.onload = ()=>{renderBili();renderDouyin();updatePageNum()};
+window.onresize = ()=>{renderBili();renderDouyin();updatePageNum()};
+
+
+        let currentPage = 1;
+        let perPagePC = 64; // PC每页8×8=64
+        let perPageMobile = 16; // 移动端4×4=16
+
+        // 渲染粉丝卡片
+        function renderFans() {
+            const isMobile = window.innerWidth < 768;
+            const perPage = isMobile ? perPageMobile : perPagePC;
+            const startIndex = (currentPage - 1) * perPage;
+            const endIndex = startIndex + perPage;
+            const showList = fansList.slice(startIndex, endIndex);
+
+            // 清空容器
+            document.querySelector('.bili-fans-grid').innerHTML = '';
+            document.querySelector('.douyin-fans-grid').innerHTML = '';
+
+            // 先填充B站粉色块，再填充抖音黑色块
+            showList.forEach((fans, index) => {
+                const card = document.createElement('a');
+                card.className = 'fans-card';
+                card.href = fans.link;
+                card.target = "_blank";
+                card.innerHTML = `<img src="${fans.img}" alt="粉丝">`;
+
+                // 前一半放B站区，后一半放抖音区
+                if(index < showList.length/2) {
+                    document.querySelector('.bili-fans-grid').appendChild(card);
+                } else {
+                    document.querySelector('.douyin-fans-grid').appendChild(card);
+                }
+            })
+
+            // 更新页码
+            const totalPage = Math.ceil(fansList.length / perPage);
+            document.getElementById('pageNum').innerText = currentPage;
+            document.getElementById('totalPage').innerText = totalPage;
+        }
+
+        // PC端左右滑动翻页
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].screenX;
+            const totalPage = Math.ceil(fansList.length / (window.innerWidth<768?16:64));
+            // 右滑->上一页，左滑->下一页
+            if(touchEndX < touchStartX - 50 && currentPage < totalPage) {
+                currentPage++;
+                renderFans();
+            }
+            if(touchEndX > touchStartX + 50 && currentPage > 1) {
+                currentPage--;
+                renderFans();
+            }
+        })
+
+        // 全屏放大逻辑
+        document.querySelectorAll('.expand-btn').forEach(btn=>{
+            btn.onclick = function(){
+                const box = this.parentElement;
+                box.classList.toggle('fullscreen');
+                
+                // 切换按钮文字
+                if(box.classList.contains('fullscreen')) {
+                    this.innerText = '✕';
+                    // 全屏时禁止页面滚动
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    this.innerText = '↖↘';
+                    // 恢复页面滚动
+                    document.body.style.overflow = '';
+                }
+            }
+        })
+
+        // 页面加载/窗口缩放自动重排
+        window.onload = renderFans;
+        window.onresize = renderFans;
+    </script>
+</body>
+</html>
