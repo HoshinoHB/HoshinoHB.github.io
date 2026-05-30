@@ -174,20 +174,17 @@
     <h1 class="title text-[clamp(2.5rem,6vw,4rem)] font-bold text-center py-8">
         HoshinoHB的粉丝墙
     </h1>
-
     <!-- UP主头像 -->
     <div class="flex justify-center mb-8">
         <div class="up-main w-44 h-44 rounded-full flex items-center justify-center">
             <img src="up-avatar.png" alt="UP主" class="w-36 h-36 rounded-full object-cover">
         </div>
     </div>
-
     <!-- 平台跳转链接 -->
     <div class="flex justify-around max-w-5xl mx-auto mb-12 px-8">
-        <a href="B站主页链接" target="_blank" class="https://b23.tv/Ck9wLL1">UP主B站</a>
-        <a href="抖音主页链接" target="_blank" class="https://v.douyin.com/EWF0B9tiWWU/">UP主抖音</a>
+        <a href="https://b23.tv/Ck9wLL1" target="_blank" class="link-text">UP主B站</a>
+        <a href="https://v.douyin.com/EWF0B9tiWWU/" target="_blank" class="link-text">UP主抖音</a>
     </div>
-
     <!-- 两大平台粉丝区 -->
     <div class="platform-wrap">
         <!-- B站粉色区块 -->
@@ -195,202 +192,125 @@
             <div class="expand-btn">↖↘</div>
             <div class="fans-grid bili-fans-grid"></div>
         </div>
-
         <!-- 抖音黑色区块 -->
         <div class="douyin-box relative">
             <div class="expand-btn">↖↘</div>
             <div class="fans-grid douyin-fans-grid"></div>
         </div>
     </div>
-
     <!-- PC端页码指示器 -->
-    <div class="page-indicator">当前页：<span id="pageNum">1</span> / <span id="totalPage">2</span></div>
-
+    <div class="page-indicator">B站：<span id="biliPage">1</span> / <span id="biliTotal">1</span> | 抖音：<span id="douyinPage">1</span> / <span id="douyinTotal">1</span></div>
     <!-- 底部版权 -->
     <footer>© HoshinoHB 2026 | <a href="https://github.com" target="_blank">GitHub提供服务</a></footer>
 
-    // ============= 两个平台 完全独立粉丝配置 =============
-// B站专属粉丝列表
-const biliFansList = [
-    {img:"https://picsum.photos/200", link:"#"},
-    {img:"https://picsum.photos/201", link:"#"},
-];
+    <script>
+        // ============= 两个平台 完全独立粉丝配置 =============
+        // B站专属粉丝列表
+        const biliFansList = [
+            {img:"https://picsum.photos/200", link:"#"},
+            {img:"https://picsum.photos/201", link:"#"},
+        ];
+        // 抖音专属粉丝列表
+        const douyinFansList = [
+            {img:"https://picsum.photos/300", link:"#"},
+            {img:"https://picsum.photos/301", link:"#"},
+        ];
 
-// 抖音专属粉丝列表
-const douyinFansList = [
-    {img:"https://picsum.photos/300", link:"#"},
-    {img:"https://picsum.photos/301", link:"#"},
-];
+        let biliPage = 1;
+        let douyinPage = 1;
+        const pcMax = 64;
+        const mobileMax = 16;
 
-let biliPage = 1;
-let douyinPage = 1;
-const pcMax = 64;
-const mobileMax = 16;
-
-// 单独渲染B站粉丝
-function renderBili() {
-    const isMobile = window.innerWidth < 768;
-    const perPage = isMobile ? mobileMax : pcMax;
-    const start = (biliPage-1)*perPage;
-    const end = start + perPage;
-    const show = biliFansList.slice(start, end);
-
-    const box = document.querySelector('.bili-fans-grid');
-    box.innerHTML = '';
-    show.forEach(fan=>{
-        const a = document.createElement('a');
-        a.className = 'fans-card';
-        a.href = fan.link;
-        a.target = '_blank';
-        a.innerHTML = `<img src="${fan.img}">`;
-        box.append(a);
-    })
-}
-
-// 单独渲染抖音粉丝
-function renderDouyin() {
-    const isMobile = window.innerWidth < 768;
-    const perPage = isMobile ? mobileMax : pcMax;
-    const start = (douyinPage-1)*perPage;
-    const end = start + perPage;
-    const show = douyinFansList.slice(start, end);
-
-    const box = document.querySelector('.douyin-fans-grid');
-    box.innerHTML = '';
-    show.forEach(fan=>{
-        const a = document.createElement('a');
-        a.className = 'fans-card';
-        a.href = fan.link;
-        a.target = '_blank';
-        a.innerHTML = `<img src="${fan.img}">`;
-        box.append(a);
-    })
-}
-
-// 左右滑动翻页
-let startX = 0;
-document.addEventListener('touchstart',e=>startX = e.touches[0].screenX);
-document.addEventListener('touchend',e=>{
-    const endX = e.changedTouches[0].screenX;
-    const move = startX - endX;
-    const isMobile = window.innerWidth <768;
-    if(isMobile) return;
-
-    // 左滑翻下一页
-    if(move >60){
-        if(biliPage < Math.ceil(biliFansList.length/(isMobile?16:64))) biliPage++;
-        if(douyinPage < Math.ceil(douyinFansList.length/(isMobile?16:64))) douyinPage++;
-    }
-    // 右滑翻上一页
-    if(move <-60){
-        if(biliPage>1) biliPage--;
-        if(douyinPage>1) douyinPage--;
-    }
-    renderBili();renderDouyin();
-    updatePageNum();
-})
-
-// 更新页码
-function updatePageNum(){
-    const isMobile = window.innerWidth <768;
-    const totalBili = Math.ceil(biliFansList.length/(isMobile?16:64));
-    const totalDouyin = Math.ceil(douyinFansList.length/(isMobile?16:64));
-    document.getElementById('pageNum').innerText = `${biliPage} / ${totalBili}`;
-    document.getElementById('totalPage').innerText = `${douyinPage} / ${totalDouyin}`;
-}
-
-// 全屏放大切换
-document.querySelectorAll('.expand-btn').forEach(btn=>{
-    btn.onclick = function(){
-        const wrap = this.parentElement;
-        wrap.classList.toggle('fullscreen');
-        this.innerText = wrap.classList.contains('fullscreen') ? '✕' : '↖↘';
-        document.body.style.overflow = wrap.classList.contains('fullscreen')?'hidden':'';
-    }
-})
-
-// 页面加载自动渲染
-window.onload = ()=>{renderBili();renderDouyin();updatePageNum()};
-window.onresize = ()=>{renderBili();renderDouyin();updatePageNum()};
-
-
-        let currentPage = 1;
-        let perPagePC = 64; // PC每页8×8=64
-        let perPageMobile = 16; // 移动端4×4=16
-
-        // 渲染粉丝卡片
-        function renderFans() {
+        // 单独渲染B站粉丝
+        function renderBili() {
             const isMobile = window.innerWidth < 768;
-            const perPage = isMobile ? perPageMobile : perPagePC;
-            const startIndex = (currentPage - 1) * perPage;
-            const endIndex = startIndex + perPage;
-            const showList = fansList.slice(startIndex, endIndex);
-
-            // 清空容器
-            document.querySelector('.bili-fans-grid').innerHTML = '';
-            document.querySelector('.douyin-fans-grid').innerHTML = '';
-
-            // 先填充B站粉色块，再填充抖音黑色块
-            showList.forEach((fans, index) => {
-                const card = document.createElement('a');
-                card.className = 'fans-card';
-                card.href = fans.link;
-                card.target = "_blank";
-                card.innerHTML = `<img src="${fans.img}" alt="粉丝">`;
-
-                // 前一半放B站区，后一半放抖音区
-                if(index < showList.length/2) {
-                    document.querySelector('.bili-fans-grid').appendChild(card);
-                } else {
-                    document.querySelector('.douyin-fans-grid').appendChild(card);
-                }
+            const perPage = isMobile ? mobileMax : pcMax;
+            const start = (biliPage-1)*perPage;
+            const end = start + perPage;
+            const show = biliFansList.slice(start, end);
+            const box = document.querySelector('.bili-fans-grid');
+            box.innerHTML = '';
+            show.forEach(fan=>{
+                const a = document.createElement('a');
+                a.className = 'fans-card';
+                a.href = fan.link;
+                a.target = '_blank';
+                a.innerHTML = `<img src="${fan.img}" alt="粉丝">`;
+                box.append(a);
             })
-
-            // 更新页码
-            const totalPage = Math.ceil(fansList.length / perPage);
-            document.getElementById('pageNum').innerText = currentPage;
-            document.getElementById('totalPage').innerText = totalPage;
         }
 
-        // PC端左右滑动翻页
-        let touchStartX = 0;
-        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
-        document.addEventListener('touchend', e => {
-            const touchEndX = e.changedTouches[0].screenX;
-            const totalPage = Math.ceil(fansList.length / (window.innerWidth<768?16:64));
-            // 右滑->上一页，左滑->下一页
-            if(touchEndX < touchStartX - 50 && currentPage < totalPage) {
-                currentPage++;
-                renderFans();
+        // 单独渲染抖音粉丝
+        function renderDouyin() {
+            const isMobile = window.innerWidth < 768;
+            const perPage = isMobile ? mobileMax : pcMax;
+            const start = (douyinPage-1)*perPage;
+            const end = start + perPage;
+            const show = douyinFansList.slice(start, end);
+            const box = document.querySelector('.douyin-fans-grid');
+            box.innerHTML = '';
+            show.forEach(fan=>{
+                const a = document.createElement('a');
+                a.className = 'fans-card';
+                a.href = fan.link;
+                a.target = '_blank';
+                a.innerHTML = `<img src="${fan.img}" alt="粉丝">`;
+                box.append(a);
+            })
+        }
+
+        let startX = 0;
+        document.addEventListener('touchstart',e=>startX = e.touches[0].screenX);
+        document.addEventListener('touchend',e=>{
+            const endX = e.changedTouches[0].screenX;
+            const move = startX - endX;
+            const isMobile = window.innerWidth <768;
+            const perPage = isMobile ? mobileMax : pcMax;
+
+            // 左滑翻下一页
+            if(move >60){
+                if(biliPage < Math.ceil(biliFansList.length/perPage)) biliPage++;
+                if(douyinPage < Math.ceil(douyinFansList.length/perPage)) douyinPage++;
             }
-            if(touchEndX > touchStartX + 50 && currentPage > 1) {
-                currentPage--;
-                renderFans();
+            // 右滑翻上一页
+            if(move <-60){
+                if(biliPage>1) biliPage--;
+                if(douyinPage>1) douyinPage--;
             }
+            renderBili();renderDouyin();
+            updatePageNum();
         })
 
-        // 全屏放大逻辑
+        function updatePageNum(){
+            const isMobile = window.innerWidth <768;
+            const perPage = isMobile ? mobileMax : pcMax;
+            const totalBili = Math.ceil(biliFansList.length/perPage);
+            const totalDouyin = Math.ceil(douyinFansList.length/perPage);
+            
+            document.getElementById('biliPage').innerText = biliPage;
+            document.getElementById('biliTotal').innerText = totalBili;
+            document.getElementById('douyinPage').innerText = douyinPage;
+            document.getElementById('douyinTotal').innerText = totalDouyin;
+        }
+
+        // 全屏放大切换
         document.querySelectorAll('.expand-btn').forEach(btn=>{
             btn.onclick = function(){
-                const box = this.parentElement;
-                box.classList.toggle('fullscreen');
-                
-                // 切换按钮文字
-                if(box.classList.contains('fullscreen')) {
-                    this.innerText = '✕';
-                    // 全屏时禁止页面滚动
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    this.innerText = '↖↘';
-                    // 恢复页面滚动
-                    document.body.style.overflow = '';
-                }
+                const wrap = this.parentElement;
+                wrap.classList.toggle('fullscreen');
+                this.innerText = wrap.classList.contains('fullscreen') ? '✕' : '↖↘';
+                document.body.style.overflow = wrap.classList.contains('fullscreen')?'hidden':'';
             }
         })
 
-        // 页面加载/窗口缩放自动重排
-        window.onload = renderFans;
-        window.onresize = renderFans;
+        function init() {
+            renderBili();
+            renderDouyin();
+            updatePageNum();
+        }
+
+        window.onload = init;
+        window.onresize = init;
     </script>
 </body>
 </html>
