@@ -178,13 +178,11 @@
         footer a:hover {
             text-decoration: underline;
         }
-
         /* ==================== 评论系统 ==================== */
         #vcomments {
             background: linear-gradient(135deg, #ffbbee 0%, #ff99ee 100%);
             box-shadow: 0 12px 35px rgba(255, 136, 221, 0.3);
         }
-
         #vcomments .vheader input,
         #vcomments .veditor {
             background-color: #fff5fb !important;
@@ -193,12 +191,10 @@
             border-radius: 12px !important;
             padding: 12px !important;
         }
-
         #vcomments .vheader input::placeholder,
         #vcomments .veditor::placeholder {
             color: #aa6699 !important;
         }
-
         #vcomments .vbtn {
             background-color: #f088dd !important;
             border: none !important;
@@ -206,15 +202,13 @@
             border-radius: 12px !important;
             padding: 10px 20px !important;
             font-weight: bold !important;
-            transition: all 0.3s !important;
+            transition: all 0.3 !important;
         }
-
         #vcomments .vbtn:hover {
             background-color: #ee77dd !important;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(240, 136, 221, 0.4);
         }
-
         #vcomments .vcard {
             background-color: #fff5fb !important;
             border-radius: 16px !important;
@@ -222,21 +216,17 @@
             margin-bottom: 18px !important;
             box-shadow: 0 4px 12px rgba(240, 136, 221, 0.15);
         }
-
         #vcomments .vcontent {
             color: #555 !important;
             line-height: 1.6 !important;
         }
-
         #vcomments .vnick {
             color: #f088dd !important;
             font-weight: bold !important;
         }
-
         #vcomments .vtime {
             color: #996688 !important;
         }
-
         #vcomments .vcount {
             color: #f088dd !important;
             font-weight: bold !important;
@@ -269,11 +259,12 @@
         </div>
     </div>
     <div class="page-indicator">B站：<span id="biliPage">1</span> / <span id="biliTotal">1</span> | 抖音：<span id="douyinPage">1</span> / <span id="douyinTotal">1</span></div>
-
+    
+    <div id="vcomments"></div>
+    
     <footer>© HoshinoHB 2026 | <a href="https://github.com" target="_blank">GitHub提供服务</a></footer>
-    <script src="https://unpkg.com/valine/dist/Valine.min.js"></script>
+
     <script>
-    <!-- BiliBili -->
         const biliFansList = [
             {img:"https://i1.hdslb.com/bfs/face/c8f8c736b8711c0a4309aca0aaa22d457ba974b0.jpg@168w_168h_1c.webp",link:"https://m.bilibili.com/space/3546698202745523?plat_id=1&share_from=space&share_medium=android&share_plat=android&share_session_id=d622585e-7077-4981-afb5-26a320f46e3e&share_source=COPY&share_tag=s_i&timestamp=1780117919&unique_k=81Ompuy"},
             {img:"https://i0.hdslb.com/bfs/face/91411db377b344a06d500cc32a993c325c1579fe.jpg@168w_168h_1c.webp",link:"https://b23.tv/Y8FS7a5"},
@@ -304,8 +295,6 @@
             {img:"https://i0.hdslb.com/bfs/face/f69b47758c9798d17828d148b39514e168a0495e.jpg@168w_168h_1c.webp",link:"https://b23.tv/pprt0NT"},
             {img:"https://i0.hdslb.com/bfs/face/32ea026b9f52947c492dc908ff4f0617977d9bd2.jpg@168w_168h_1c.webp",link:"https://b23.tv/jpIubLJ"}
         ];
-        
-        <!-- 抖音-->     
         
         const douyinFansList = [
             {img:"https://p3-pc.douyinpic.com/img/aweme-avatar/tos-cn-i-0813_o4EMfA9AEAAfXIAKAnAg3EiXDCFlpuCDrOjzy7~c5_300x300.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAAnADhFGrYU-0QK0C3_YtlMyFjp4tZU_2qcohH4f0xiC4"},
@@ -350,7 +339,6 @@
             show.forEach(fan=>{
                 const a = document.createElement('a');
                 a.className = 'fans-card';
-                // 判断链接是否有效
                 const isValidLink = fan.link && fan.link !== "" && !fan.link.includes("Didn'tfindit");
                 if (isValidLink) {
                     a.href = fan.link;
@@ -374,7 +362,6 @@
             show.forEach(fan=>{
                 const a = document.createElement('a');
                 a.className = 'fans-card';
-                // 判断链接是否有效
                 const isValidLink = fan.link && fan.link !== "" && !fan.link.includes("Didn'tfindit");
                 if (isValidLink) {
                     a.href = fan.link;
@@ -429,18 +416,18 @@
             updatePageNum();
             // 初始化评论系统
             new Waline({
-    el: '#vcomments',
-    serverURL: "https://hoshino-hb-github-io.vercel.app/",
-    placeholder: "聊几句吧~",
-    avatar: "monsterid",
-    pageSize: 10,
-    lang: "zh-CN",
-    visitor: true,
-    recordIP: false
-});
+                el: '#vcomments',
+                serverURL: "https://hoshino-hb-github-io.vercel.app/",
+                placeholder: "聊几句吧~",
+                avatar: "monsterid",
+                pageSize: 10,
+                lang: "zh-CN",
+                visitor: true,
+                recordIP: false
+            });
+        }
         window.onload = init;
         window.onresize = init;
     </script>
-    <div id="vcomments"></div>
 </body>
 </html>
