@@ -414,8 +414,23 @@
             renderBili();
             renderDouyin();
             updatePageNum();
-        window.onload = init;
-        window.onresize = init;
+        // 页面未载完，优先渲染头像
+renderBili();
+renderDouyin();
+updatePageNum();
+
+window.onload = () => {
+    renderBili();
+    renderDouyin();
+    updatePageNum();
+};
+
+window.onresize = () => {
+    renderBili();
+    renderDouyin();
+    updatePageNum();
+};
+
     </script>
     // 初始化评论系统
         <script src="https://giscus.app/client.js"
