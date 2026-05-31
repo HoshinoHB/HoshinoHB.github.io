@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
+<script src="https://unpkg.com/@waline/client@v3/dist/waline.js"></script>
 <meta name="referrer" content="no-referrer">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -253,7 +255,7 @@
         </div>
     </div>
     <div class="flex justify-around max-w-5xl mx-auto mb-12 px-8">
-        <a href="https://b23.tv/Ck9wLL1" target="_blank" class="link-text">UP主B站</a>
+        <a href="https://b23.tv/is2z37Y" target="_blank" class="link-text">UP主B站</a>
         <a href="https://v.douyin.com/EWF0B9tiWWU/" target="_blank" class="link-text">UP主抖音</a>
     </div>
     <div class="platform-wrap">
@@ -267,9 +269,6 @@
         </div>
     </div>
     <div class="page-indicator">B站：<span id="biliPage">1</span> / <span id="biliTotal">1</span> | 抖音：<span id="douyinPage">1</span> / <span id="douyinTotal">1</span></div>
-
-    <!-- 评论区 -->
-    <div id="vcomments"></div>
 
     <footer>© HoshinoHB 2026 | <a href="https://github.com" target="_blank">GitHub提供服务</a></footer>
     <script src="https://unpkg.com/valine/dist/Valine.min.js"></script>
@@ -429,21 +428,19 @@
             renderDouyin();
             updatePageNum();
             // 初始化评论系统
-            new Valine({
-                el: '#vcomments',
-                appId: '317fb056f7cf80172d98dab194364fa7b5ca75a1',
-                appKey: '317fb056f7cf80172d98dab194364fa7b5ca75a1',
-                placeholder: '聊几句吧~',
-                avatar: 'monsterid',
-                pageSize: 10,
-                lang: 'zh-CN',
-                visitor: true,
-                recordIP: false,
-                enableQQ: false
-            });
-        }
+            new Waline({
+    el: '#vcomments',
+    serverURL: "https://hoshino-hb-github-io.vercel.app/",
+    placeholder: "聊几句吧~",
+    avatar: "monsterid",
+    pageSize: 10,
+    lang: "zh-CN",
+    visitor: true,
+    recordIP: false
+});
         window.onload = init;
         window.onresize = init;
     </script>
+    <div id="vcomments"></div>
 </body>
 </html>
