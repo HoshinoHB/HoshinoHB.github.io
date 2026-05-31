@@ -1,8 +1,7 @@
 # 💖 HoshinoHB 专属粉丝纪念墙
 
 <p align="center">
-  <!-- 把下面链接替换成你当前页面截图的图片直链 -->
-  <img width="650" alt="粉丝墙成品预览" src="此处替换为你的截图图床链接">
+  <img width="650" alt="粉丝墙成品预览" src="https://github.com/HoshinoHB/HoshinoHB.github.io/blob/main/Screenshot_2026-05-31-14-53-04-17_a252b927494330cdc2c8ba3b3f952e5e.jpg">
 </p>
 
 <p align="center">
@@ -10,18 +9,18 @@
 </p>
 
 <p align="center">
-  <a href="https://hoshinohb.github.io/">🌐 立即进入粉丝墙</a> ·
-  ⭐ 点亮Star支持一下
+  <a href="https://hoshinohb-github-io.pages.dev//">🌐 立即进入粉丝墙</a> ·
+  ⭐ 点个Star支持一下
 </p>
 
 ---
 
 ## 📌 项目介绍
-这是为UP主 **HoshinoHB** 量身打造的专属静态粉丝墙，
+这是UP主 **HoshinoHB** 量身打造的专属静态粉丝墙，
 整洁陈列B站、抖音两大平台的粉丝头像，搭配友好的公开评论区，
 永久记录所有温暖的关注与支持。
 
-全程纯前端静态开发，依托 **GitHub Pages** 永久免费托管，稳定在线、全球可访问。
+全程纯前端静态开发，依托 **GitHub Pages / Cloudflare Pages** 永久免费托管，稳定在线、全球可访问。
 
 ---
 
@@ -52,15 +51,12 @@
 
 ---
 
-## 🛠️ 日常维护教程
+## 🛠️ 小技巧
 1. **新增粉丝头像**
-打开`index.html`，在对应平台的粉丝数组里，追加「头像图床链接+个人主页地址」即可。
+打开网站在评论区输入个人的主页地址或平台账号名称，“写求上”
 
-2. **修改页面外观**
-直接修改`<style>`标签内的颜色、渐变、尺寸参数，一键更换整体风格。
-
-3. **评论后台管理**
-所有留言、点赞、回复，全部同步保存在仓库`Discussions`板块，可随时审核/删除/回复。
+2. **评论后台管理**
+所有留言、点赞、回复，全部同步保存在仓库`Discussions`板块。
 
 ---
 
