@@ -166,7 +166,7 @@
         }
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: 20px 20px 40px;
             color: #777;
             font-size: 15px;
         }
@@ -328,6 +328,7 @@
         let douyinPage = 1;
         const pcMax = 64;
         const mobileMax = 16;
+        
         function renderBili() {
             const isMobile = window.innerWidth < 768;
             const perPage = isMobile ? mobileMax : pcMax;
@@ -351,6 +352,7 @@
                 box.append(a);
             })
         }
+        
         function renderDouyin() {
             const isMobile = window.innerWidth < 768;
             const perPage = isMobile ? mobileMax : pcMax;
@@ -374,6 +376,7 @@
                 box.append(a);
             })
         }
+        
         let startX = 0;
         document.addEventListener('touchstart',e=>startX = e.touches[0].screenX);
         document.addEventListener('touchend',e=>{
@@ -392,6 +395,7 @@
             renderBili();renderDouyin();
             updatePageNum();
         })
+        
         function updatePageNum(){
             const isMobile = window.innerWidth <768;
             const perPage = isMobile ? mobileMax : pcMax;
@@ -402,6 +406,7 @@
             document.getElementById('douyinPage').innerText = douyinPage;
             document.getElementById('douyinTotal').innerText = totalDouyin;
         }
+        
         document.querySelectorAll('.expand-btn').forEach(btn=>{
             btn.onclick = function(){
                 const wrap = this.parentElement;
@@ -410,30 +415,20 @@
                 document.body.style.overflow = wrap.classList.contains('fullscreen')?'hidden':'';
             }
         })
+        
         function init() {
             renderBili();
             renderDouyin();
             updatePageNum();
-        // 页面未载完，优先渲染头像
-renderBili();
-renderDouyin();
-updatePageNum();
+        }
 
-window.onload = () => {
-    renderBili();
-    renderDouyin();
-    updatePageNum();
-};
-
-window.onresize = () => {
-    renderBili();
-    renderDouyin();
-    updatePageNum();
-};
-
+        // 页面加载立即执行
+        init();
+        window.onload = init;
+        window.onresize = init;
     </script>
-    // 初始化评论系统
-        <script src="https://giscus.app/client.js"
+
+    <script src="https://giscus.app/client.js"
         data-repo="HoshinoHB/HoshinoHB.github.io"
         data-repo-id="R_kgDOSrdikw"
         data-category="Announcements"
@@ -447,6 +442,6 @@ window.onresize = () => {
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
-</script>
+    </script>
 </body>
 </html>
