@@ -17,10 +17,9 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
-            /* CSS变量控制背景图 */
             --bg-image: none;
         }
-        /* 背景层：已删除模糊效果 */
+        /* 纯碧蓝档案背景图，无模糊 */
         body::before {
             content: "";
             position: fixed;
@@ -32,8 +31,8 @@
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
-            transform: scale(1.1); /* 消除边缘留白，不影响清晰度 */
-            background-color: #fff0f9; /* 加载失败兜底底色 */
+            transform: scale(1.1);
+            background-color: #fff0f9;
             background-image: var(--bg-image);
         }
         .title {
@@ -185,18 +184,19 @@
             opacity: 0.7;
             text-decoration: underline;
         }
+        /* 底部版权栏灰色样式（已经正确放在style标签里了） */
         footer {
+            color: #888;
             text-align: center;
-            padding: 20px 20px 40px;
-            color: #777;
-            font-size: 15px;
+            padding: 15px 0;
+            font-size: 14px;
         }
         footer a {
-            color: #f088dd;
+            color: #888;
             text-decoration: none;
-            font-weight: bold;
         }
         footer a:hover {
+            color: #aaa;
             text-decoration: underline;
         }
     </style>
@@ -241,28 +241,16 @@
             data-lang="zh-CN"
             crossorigin="anonymous"
             async>
-            
         </script>
-
+    </div>
+    
+    <footer>
+        <a href="https://vlink.cc/HoshinoHB" target="_blank">Gaimoy. All rights reserved© 2026 HoshinoHB</a> | 
+        <a href="https://github.com" target="_blank">GitHub提供服务</a>
+    </footer>
+    
     <script>
-    
-    /* 底部版权栏样式 */
-footer {
-    color: #888;
-    text-align: center;
-    padding: 15px 0;
-    font-size: 14px;
-}
-footer a {
-    color: #888;
-    text-decoration: none;
-}
-footer a:hover {
-    color: #aaa;
-    text-decoration: underline;
-}
-
-    
+        // 纯碧蓝档案图片接口，无模糊、防缓存、加载兜底
         function setBgImage() {
             const apiUrl = `https://img.catcdn.cn/ba/?t=${Date.now()}`;
             const testImg = new Image();
@@ -280,11 +268,9 @@ footer a:hover {
             };
         }
 
-        // 页面加载、窗口横竖屏切换自动刷新背景
+        // 页面加载 + 窗口横竖屏切换自动刷新背景
         setBgImage();
         window.addEventListener('resize', setBgImage);
-
-        // 哔哩哔哩粉丝头像
 
         const biliFansList = [
             {img:"https://i1.hdslb.com/bfs/face/c8f8c736b8711c0a4309aca0aaa22d457ba974b0.jpg@168w_168h_1c.webp",link:"https://m.bilibili.com/space/3546698202745523?plat_id=1&share_from=space&share_medium=android&share_plat=android&share_session_id=d622585e-7077-4981-afb5-26a320f46e3e&share_source=COPY&share_tag=s_i&timestamp=1780117919&unique_k=81Ompuy"},
@@ -298,16 +284,16 @@ footer a:hover {
             {img:"https://i0.hdslb.com/bfs/face/5fe4b344d7aff5fbc1c2be1ceb7f0cdc7300eaf1.jpg@168w_168h_1c.webp",link:"https://b23.tv/Z5yZKhS"},
             {img:"https://i0.hdslb.com/bfs/face/846617af635c12402c963247928537ee4c671602.jpg@168w_168h_1c.webp",link:"https://b23.tv/rQFCBei"},
             {img:"https://i0.hdslb.com/bfs/face/42d0aa8cb74b5458b8f2081025bfa56723346784.jpg@168w_168h_1c.webp",link:"https://b23.tv/tDttk3H"},
-            {img:"https://i0.hdslb.com/bfs/face/44a28ba5edec7e06951c39788f3d3efdcb179730.webp@168w_1c.webp",link:"https://b23.tv/UVqHMrw"},
+            {img:"https://i0.hdslb.com/bfs/face/44a28ba5edec7e06951c39788f3d3efdcb179730.webp@168w_168h_1c.webp",link:"https://b23.tv/UVqHMrw"},
             {img:"https://i0.hdslb.com/bfs/face/178f6d0ee3f864ee8ca7093067cf4804feb04c03.jpg@168w_168h_1c.webp",link:"https://b23.tv/ZoW55FK"},
             {img:"https://i0.hdslb.com/bfs/face/43caf183310dc5c3a1594f2e313c46c47a7216.jpg@168w_168h_1c.webp",link:"https://b23.tv/Y4MbwM2"},
-            {img:"https://i0.hdslb.com/bfs/face/7219634b369eb7f2556442f30da5896328673a.jpg@168w_168h_1c.webp",link:"https://b23.tv/TeNKPs1"},
+            {img:"https://i0.hdslb.com/bfs/face/7219634b369eb7f2556442e4f30da5896328673a.jpg@168w_168h_1c.webp",link:"https://b23.tv/TeNKPs1"},
             {img:"https://i0.hdslb.com/bfs/face/95b77345ee49770832349454de248d06069341a9.jpg@168w_168h_1c.webp",link:"https://b23.tv/DI4Gei6"},
-            {img:"https://i0.hdslb.com/bfs/face/6ce9097db5e888cdfe904c363e6ca5766cd2613.webp@168w_1c.webp",link:"https://b23.tv/Hpi2p0D"},
+            {img:"https://i0.hdslb.com/bfs/face/6ce9097db5e888cdfe904c363e6ca5766cd2613.webp@168w_168h_1c.webp",link:"https://b23.tv/Hpi2p0D"},
             {img:"https://i0.hdslb.com/bfs/face/559e314fb3f639ead9882ee3a0505c2fd2b5d0c5.jpg@168w_168h_1c.webp",link:"https://b23.tv/z5CTHDo"},
             {img:"https://i0.hdslb.com/bfs/face/202a5e7edafcf78582349983d6086cb6c3312dbc.jpg@168w_168h_1c.webp",link:"https://b23.tv/9QlEPqs"},
             {img:"https://i0.hdslb.com/bfs/face/c6c2b00894e4d29769c27eaa029c467c12f5796d.jpg@168w_168h_1c.webp",link:"https://b23.tv/xLIP4DO"},
-            {img:"https://i0.hdslb.com/bfs/face/4957814001a3aa3eb7e4dad678b297c9a0303a21.webp@168w_1c.webp",link:"https://b23.tv/yhOWLPJ"},
+            {img:"https://i0.hdslb.com/bfs/face/4957814001a3aa3eb7e4dad678b297c9a0303a21.webp@168w_168h_1c.webp",link:"https://b23.tv/yhOWLPJ"},
             {img:"https://i0.hdslb.com/bfs/face/b4966780c91f364f8539ec1425d6476b5f0d287b.jpg@168w_168h_1c.webp",link:"https://b23.tv/80GKd1e"},
             {img:"https://i0.hdslb.com/bfs/face/f40889ef29219b5cffaf0a726c7953854b7aeab3.jpg@168w_168h_1c.webp",link:"https://b23.tv/u3a7Mk3"},
             {img:"https://i0.hdslb.com/bfs/face/095606953fd809902eaeee69d9473c66d8913278.jpg@168w_168h_1c.webp",link:"https://b23.tv/HPnXWQY"},
@@ -319,15 +305,13 @@ footer a:hover {
             {img:"https://i0.hdslb.com/bfs/face/17278f00405c4f00e9d810191de18a42f9c8f40e.jpg@168w_168h_1c.webp",link:"https://b23.tv/ZPPApOA"},
             {img:"https://i0.hdslb.com/bfs/face/7b99f2c0361fc0ae87af90b8dcd202c67e978f03.jpg@168w_168h_1c.webp",link:"https://b23.tv/mEDBkru"},
             {img:"https://i0.hdslb.com/bfs/face/3ed0d0b1433015b2cbaba73f883001af43ed95ab.jpg@168w_168h_1c.webp",link:"https://b23.tv/KytJFzO"},
-            {img:"https://i0.hdslb.com/bfs/face/5e35c6b609b774313341b8af3a0c0fbb454fba3c.png@168w_1c.webp",link:"https://b23.tv/gIWdDVw"},
+            {img:"https://i0.hdslb.com/bfs/face/5e35c6b609b774313341b8af3a0c0fbb454fba3c.png@168w_168h_1c.webp",link:"https://b23.tv/gIWdDVw"},
             {img:"https://i0.hdslb.com/bfs/face/81f048d1e35760fa8748450a24e6e49b3fc6dd6e.jpg@168w_168h_1c.webp",link:"https://b23.tv/QHyReQG"},
             {img:"https://i0.hdslb.com/bfs/face/be4a6c7c00d6fa0891697afec659c6fbf2472f46.jpg@168w_168h_1c.webp",link:"https://b23.tv/I4m8WbA"},
             {img:"https://i0.hdslb.com/bfs/face/9ec3e4951e8b881900ecc282832dfce45ecf3266.jpg@168w_168h_1c.webp",link:"https://b23.tv/2v2sV7c"},
             {img:"https://i0.hdslb.com/bfs/face/df5b8c6bfa40aa03826ff6b3e7a8d844b7d03fc1.jpg@168w_168h_1c.webp",link:"https://b23.tv/UAyhEf8"},
-            {img:"https://i0.hdslb.com/bfs/face/member/noface.jpg@168w_1c.webp",link:"https://b23.tv/4hrXgf0"}
+            {img:"https://i0.hdslb.com/bfs/face/member/noface.jpg@168w_168h_1c.webp",link:"https://b23.tv/4hrXgf0"}
         ];
-        
-        //  抖音粉丝头像
         
         const douyinFansList = [
             {img:"https://p3-pc.douyinpic.com/img/aweme-avatar/tos-cn-i-0813_o4EMfA9AEAAfXIAKAnAg3EiXDCFlpuCDrOjzy7~c5_300x300.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAAnADhFGrYU-0QK0C3_YtlMyFjp4tZU_2qcohH4f0xiC4"},
@@ -351,30 +335,30 @@ footer a:hover {
             {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_ocDPANFPQCzpwIERhf9mAf7Ar0Xg8gyPAlAAFp.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAA03ZkdvU4Dw12zy1fqzHwptJDbUOi4PTTrLv9NhTD5EWgIyYn9wImsqMxdnE1psvu"},
             {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_oADEAAyyiiAzDcAgIeDBNY2QeMrAuwznwAFPCm.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAAi0W9vOeAgN1RtZNIdEKzA1BEQZ-rJbtyA2S_sp4rgi8"},
             {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oMB3IeAopDA9WlANASFhE9oAFAbwsEesQcfpiE.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAAmEt1dICdObCBvdsxR65cvmtvUcDbaDq2actaBcm4mH4ajGmjwl-swtMpEGSoa2Al"},
-            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_6fb8bb8e38d2653eefb461b66d318be5.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAAgbiwRhNfn7-uctE2TPmvUiSXuSd3fxv1DfGaW4ONO0dOxyv4Ak7--pZ3Elzk8mt"},
+            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_6fb8bb8e38d2653eefb461b66d318be5.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAANgbiwRhNfn7-uctE2TPmvUiSXuSd3fxv1DfGaW4ONO0dOxyv4Ak7--pZ3Elzk8mt"},
             {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_o0f8B9PAEACiACwq1jBpn0IBoEAQ26eJPiBABC.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAA__TUryu6Sw_KbcF03zB_oXMI6BtO2IpMFcehrX7jhhWFMY5CRdK46z6Uz3IPafIv"},
             {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_o06PZvXhOttAidCAQEBAaA7PqWAIMv6BiFVB0.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAA44D3qjHadl9EGIubpcW90HGJr5WZIBUqOEaZ-hhmaz1xnfdaeqD9C4E1ZXbJuozA"},
             {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_o4Q8j7ETc3ef5LuoKgOGzAABEVBeAxGATgAHIv.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAA2kA8KYaSjoIVSxQTwcgTW3OVFfWwZ-dmH2eqcuVJ2MNghvGbbitDOhUH-cn0Rry2"},
             {img:"https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oseV7lc9FETmAb4Eip2w9fB6iTfAAE6ADIyvAE.jpeg?from=2956013662",link:"https://www.douyin.com/user/MS4wLjABAAAAdAWuCwsa0kFdpLmxl45i6i3nZJUt-jOChH3xT8Vg3296FO6RdmG2EV9xF1jWii9K"},
-            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_e1481cac99ce119136b0c6bddd7b03f5.jpeg?from=2956013662",link:"https://www.douyin.com/6naBET8DsCo/"},
-            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oow042tCAAA7AeytwEiEebnB3vDZ7dNiEACDjI.jpeg?from=2956013662",link:"https://www.douyin.com/cM0zNF0t-MI/"},
-            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oo1aAAnDpCp8oFFFEAAa9AEmAE01fdIwf9IoBC.jpeg?from=2956013662",link:"https://www.douyin.com/3iUo5lnTV6Y/"},
-            {img:"https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_o8BCPpIgQQAFMEojFn72vafWAfD4JFAQMAeT1q.jpeg?from=2956013662",link:"https://www.douyin.com/N-L1vbEQ-Ls/"},
-            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_o4dAKfk29gj9D2AIAekEAYCDTAdFEwLKmX3iAB.jpeg?from=2956013662",link:"https://www.douyin.com/XCU-avsr7c8/"},
-            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oYAR4fEwnoAijioBA6e10lv8AMBGECAIFAn0Rt.jpeg?from=2956013662",link:"https://www.douyin.com/ECpJGq0Aqjo/"},
-            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_owAAV4EQIAgoHpAfIxFCGfAzYIJnuAABDC29Ar.jpeg?from=2956013662",link:"https://www.douyin.com/m2Z5lUt6SSI/"},
-            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_okAAnHhIEAgyIWltqkfNo1AREBgcYAAEzCEeAD.jpeg?from=2956013662",link:"https://zqL0CSlOcnw/"},
-            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_be37b249a4b44cb8ae98d52cd0e6e18d.jpeg?from=2956013662",link:"https://www.douyin.com/V5bE2eztwso/"},
-            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_31eda180aff28ffc0d4a64122555bef6.jpeg?from=2956013662",link:"https://www.douyin.com/VWB9DcsatBk/"},
-            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oEdDqEQvqADwwWAlIqBACVoIMoFU9JTE7AeKfA.jpeg?from=2956013662",link:"https://www.douyin.com/yfx3urxA3eI/"},
-            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_owxhTgkAPEVjiBzAAAkzAIM3gIvAaVpYjaiad.jpeg?from=2956013662",link:"https://www.douyin.com/aNLnApC6O5w/"},
-            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_o8B1q0ADvACxA4BPADYtoCIg3ie62eJAGCiEAE.jpeg?from=2956013662",link:"https://www.douyin.com/XhmfQWk67vY/"},
-            {img:"https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oc0ACD2QJCaE0Aie1A7IQpNAAmA1gsfAS1mBiV.jpeg?from=2956013662",link:"https://www.douyin.com/OswGUe8KEe4/"},
-            {img:"https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oYNlAWnIqfEdWAnoAfAI2qXLCeAd78DgTGvKAf.jpeg?from=2956013662",link:"https://www.douyin.com/aK6ZNM5cIvw/"},
-            {img:"https://p11.douyin.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_okzAGJfEmgeeRlGOPQFX78AHAkIWFcBADvHJKx.jpeg?from=2956013662",link:"https://www.douyin.com/TCDkb6mTR-I/"},
-            {img:"https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oAfN2nAPGGXIDZYdTAQAi8fepeQAuLIGAIgKgs.jpeg?from=2956013662",link:"https://www.douyin.com/aF20exXPPCo/"},
-            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_6fb8bb8e38d2653eefb461b66d318be5.jpeg?from=2956013662",link:"https://www.douyin.com/Cw4uE8GipEk/"},
-            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_8a571d91a02479e16bd548b91723a2f0.jpeg?from=2956013662",link:"https://www.douyin.com/e3XCXl2kSWk/"}
+            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_e1481cac99ce119136b0c6bddd7b03f5.jpeg?from=2956013662",link:"https://v.douyin.com/6naBET8DsCo/"},
+            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oow042tCAAA7AeytwEiEebnB3vDZ7dNiEACDjI.jpeg?from=2956013662",link:"https://v.douyin.com/cM0zNF0t-MI/"},
+            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oo1aAAnDpCp8oFFFEAAa9AEmAE01fdIwf9IoBC.jpeg?from=2956013662",link:"https://v.douyin.com/3iUo5lnTV6Y/"},
+            {img:"https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_o8BCPpIgQQAFMEojFn72vafWAfD4JFAQMAeT1q.jpeg?from=2956013662",link:"https://v.douyin.com/N-L1vbEQ-Ls/"},
+            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_o4dAKfk29gj9D2AIAekEAYCDTAdFEwLKmX3iAB.jpeg?from=2956013662",link:"https://v.douyin.com/XCU-avsr7c8/"},
+            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oYAR4fEwnoAijioBA6e10lv8AMBGECAIFAn0Rt.jpeg?from=2956013662",link:"https://v.douyin.com/ECpJGq0Aqjo/"},
+            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_owAAV4EQIAgoHpAfIxFCGfAzYIJnuAABDC29Ar.jpeg?from=2956013662",link:"https://v.douyin.com/m2Z5lUt6SSI/"},
+            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_okAAnHhIEAgyIWltqkfNo1AREBgcYAAEzCEeAD.jpeg?from=2956013662",link:"https://v.douyin.com/zqL0CSlOcnw/"},
+            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_be37b249a4b44cb8ae98d52cd0e6e18d.jpeg?from=2956013662",link:"https://v.douyin.com/V5bE2eztwso/"},
+            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_31eda180aff28ffc0d4a64122555bef6.jpeg?from=2956013662",link:"https://v.douyin.com/VWB9DcsatBk/"},
+            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oEdDqEQvqADwwWAlIqBACVoIMoFU9JTE7AeKfA.jpeg?from=2956013662",link:"https://v.douyin.com/yfx3urxA3eI/"},
+            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_owxhTgkAPEVjiBzAAAkzAIM3gIvAaVpYjaiad.jpeg?from=2956013662",link:"https://v.douyin.com/aNLnApC6O5w/"},
+            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_o8B1q0ADvACxA4BPADYtoCIg3ie62eJAGCiEAE.jpeg?from=2956013662",link:"https://v.douyin.com/XhmfQWk67vY/"},
+            {img:"https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c001_oc0ACD2QJCaE0Aie1A7IQpNAAmA1gsfAS1mBiV.jpeg?from=2956013662",link:"https://v.douyin.com/OswGUe8KEe4/"},
+            {img:"https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oYNlAWnIqfEdWAnoAfAI2qXLCeAd78DgTGvKAf.jpeg?from=2956013662",link:"https://v.douyin.com/aK6ZNM5cIvw/"},
+            {img:"https://p11.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_okzAGJfEmgeeRlGOPQFX78AHAkIWFcBADvHJKx.jpeg?from=2956013662",link:"https://v.douyin.com/TCDkb6mTR-I/"},
+            {img:"https://p26.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813c000-ce_oAfN2nAPGGXIDZYdTAQAi8fepeQAuLIGAIgKgs.jpeg?from=2956013662",link:"https://v.douyin.com/aF20exXPPCo/"},
+            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_6fb8bb8e38d2653eefb461b66d318be5.jpeg?from=2956013662",link:"https://v.douyin.com/Cw4uE8GipEk/"},
+            {img:"https://p3.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-avt-0015_8a571d91a02479e16bd548b91723a2f0.jpeg?from=2956013662",link:"https://v.douyin.com/e3XCXl2kSWk/"}
         ];
         
         let biliPage = 1;
@@ -479,13 +463,6 @@ footer a:hover {
         
         init();
         window.addEventListener('resize', init);
-</div>
-
-<!-- 版权栏 -->
-<footer>
-    <a href="https://vlink.cc/HoshinoHB" target="_blank">Gaimoy. All rights reserved© 2026 HoshinoHB</a> | 
-    <a href="https://github.com" target="_blank">GitHub提供服务</a>
-</footer>
     </script>
 </body>
 </html>
