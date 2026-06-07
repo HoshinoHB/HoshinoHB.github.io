@@ -15,13 +15,31 @@
         body {
             font-family: "Microsoft Yahei", sans-serif;
             min-height: 100vh;
-            /* 背景基础配置：全屏居中、固定不滚动 */
+            position: relative;
+            overflow-x: hidden;
+            /* 定义CSS变量，用于JS动态修改背景图 */
+            --bg-image: none;
+        }
+        /* 纯图片背景+高斯模糊（单独层级，不影响内容） */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
-            /* 加载失败兜底：原有粉色渐变 */
-            background: linear-gradient(135deg, #fff0f9 0%, #ffe6f7 50%, #fff5fb 100%);
+            /* 8px高斯模糊，可自行调整数值 */
+            filter: blur(8px);
+            /* 解决模糊边缘白边问题 */
+            transform: scale(1.1);
+            /* 加载失败兜底浅粉色 */
+            background-color: #fff0f9;
+            /* 绑定CSS变量，JS修改变量这里自动更新 */
+            background-image: var(--bg-image);
         }
         .title {
             color: #f088dd;
@@ -234,35 +252,35 @@
     <footer>© HoshinoHB 2026 | <a href="https://github.com" target="_blank">GitHub提供服务</a></footer>
     
     <script>
-        // 碧蓝档案专属背景：电脑横版/手机竖版自动切换
-        function setBaBg() {
+        // 替换为 eopfapi.xiaowon.cn 高速接口 + 修复伪元素背景
+        function setBgImage() {
             const isMobile = window.innerWidth < 768;
-            // 稳定可用的ghser BA专属接口，100%出碧蓝档案图
-            const apiUrl = isMobile 
-                ? `https://api.ghser.com/random/mobile.php?tag=bluearchive&t=${Date.now()}`
-                : `https://api.ghser.com/random/pc.php?tag=bluearchive&t=${Date.now()}`;
+            // 横屏用img=h，竖屏用img=v，加时间戳防缓存
+            const apiUrl = isMobile
+                ? `https://eopfapi.xiaowon.cn/pic?img=v&t=${Date.now()}`
+                : `https://eopfapi.xiaowon.cn/pic?img=h&t=${Date.now()}`;
 
-            // 先测试图片加载
             const testImg = new Image();
             testImg.src = apiUrl;
+            const timeout = setTimeout(() => testImg.onerror(), 3000);
 
-            // 加载成功：设置背景+粉色蒙版
             testImg.onload = function() {
-                document.body.style.background = `
-                    linear-gradient(135deg, rgba(255,240,249,0.85), rgba(255,230,247,0.85)),
-                    url(${apiUrl})
-                `;
+                clearTimeout(timeout);
+                // ✅ 修改CSS变量，伪元素自动更新背景图
+                document.body.style.setProperty('--bg-image', `url(${apiUrl})`);
             };
 
-            // 加载失败：自动回退到原浅粉色背景
             testImg.onerror = function() {
-                document.body.style.background = "linear-gradient(135deg, #fff0f9 0%, #ffe6f7 50%, #fff5fb 100%)";
+                clearTimeout(timeout);
+                // 加载失败清空背景图，显示兜底浅粉色
+                document.body.style.setProperty('--bg-image', 'none');
             };
         }
 
-        // 页面加载和窗口变化时执行
-        setBaBg();
-        window.addEventListener('resize', setBaBg);
+        // 页面加载执行
+        setBgImage();
+        // 窗口变化自动切换对应比例图片
+        window.addEventListener('resize', setBgImage);
 
         const biliFansList = [
             {img:"https://i1.hdslb.com/bfs/face/c8f8c736b8711c0a4309aca0aaa22d457ba974b0.jpg@168w_168h_1c.webp",link:"https://m.bilibili.com/space/3546698202745523?plat_id=1&share_from=space&share_medium=android&share_plat=android&share_session_id=d622585e-7077-4981-afb5-26a320f46e3e&share_source=COPY&share_tag=s_i&timestamp=1780117919&unique_k=81Ompuy"},
@@ -278,10 +296,10 @@
             {img:"https://i0.hdslb.com/bfs/face/42d0aa8cb74b5458b8f2081025bfa56723346784.jpg@168w_168h_1c.webp",link:"https://b23.tv/tDttk3H"},
             {img:"https://i0.hdslb.com/bfs/face/44a28ba5edec7e06951c39788f3d3efdcb179730.webp@168w_168h_1c.webp",link:"https://b23.tv/UVqHMrw"},
             {img:"https://i0.hdslb.com/bfs/face/178f6d0ee3f864ee8ca7093067cf4804feb04c03.jpg@168w_168h_1c.webp",link:"https://b23.tv/ZoW55FK"},
-            {img:"https://i0.hdslb.com/bfs/face/43caf183310dc5c3a3a1594f2e313c46c47a7216.jpg@168w_168h_1c.webp",link:"https://b23.tv/Y4MbwM2"},
+            {img:"https://i0.hdslb.com/bfs/face/43caf183310dc5c3a1594f2e313c46c47a7216.jpg@168w_168h_1c.webp",link:"https://b23.tv/Y4MbwM2"},
             {img:"https://i0.hdslb.com/bfs/face/7219634b369eb7f2556442e4f30da5896328673a.jpg@168w_168h_1c.webp",link:"https://b23.tv/TeNKPs1"},
             {img:"https://i0.hdslb.com/bfs/face/95b77345ee49770832349454de248d06069341a9.jpg@168w_168h_1c.webp",link:"https://b23.tv/DI4Gei6"},
-            {img:"https://i0.hdslb.com/bfs/face/6ce9097db5e888cdfe904c363e6ca5766bcd2613.webp@168w_168h_1c.webp",link:"https://b23.tv/Hpi2p0D"},
+            {img:"https://i0.hdslb.com/bfs/face/6ce9097db5e888cdfe904c363e6ca5766cd2613.webp@168w_168h_1c.webp",link:"https://b23.tv/Hpi2p0D"},
             {img:"https://i0.hdslb.com/bfs/face/559e314fb3f639ead9882ee3a0505c2fd2b5d0c5.jpg@168w_168h_1c.webp",link:"https://b23.tv/z5CTHDo"},
             {img:"https://i0.hdslb.com/bfs/face/202a5e7edafcf78582349983d6086cb6c3312dbc.jpg@168w_168h_1c.webp",link:"https://b23.tv/9QlEPqs"},
             {img:"https://i0.hdslb.com/bfs/face/c6c2b00894e4d29769c27eaa029c467c12f5796d.jpg@168w_168h_1c.webp",link:"https://b23.tv/xLIP4DO"},
@@ -454,7 +472,7 @@
         }
         
         init();
-        window.onresize = init;
+        window.addEventListener('resize', init);
     </script>
 </body>
 </html>
