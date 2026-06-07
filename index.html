@@ -244,23 +244,25 @@
             
         </script>
 
-    footer {
-    color: #888; /* 文字灰色 */
-    text-align: center; /* 文字居中 */
-    padding: 15px 0; /* 上下留白 */
-    font-size: 14px; /* 字号调小 */
+    <script>
+    
+    /* 底部版权栏样式 */
+footer {
+    color: #888;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
 }
 footer a {
-    color: #888; 
-    text-decoration: none; 
+    color: #888;
+    text-decoration: none;
 }
 footer a:hover {
-    color: #aaa; 
-    text-decoration: underline; /* 悬停显示下划线 */
+    color: #aaa;
+    text-decoration: underline;
 }
 
-
-    <script>
+    
         function setBgImage() {
             const apiUrl = `https://img.catcdn.cn/ba/?t=${Date.now()}`;
             const testImg = new Image();
@@ -477,6 +479,13 @@ footer a:hover {
         
         init();
         window.addEventListener('resize', init);
+</div>
+
+<!-- 版权栏 -->
+<footer>
+    <a href="https://vlink.cc/HoshinoHB" target="_blank">Gaimoy. All rights reserved© 2026 HoshinoHB</a> | 
+    <a href="https://github.com" target="_blank">GitHub提供服务</a>
+</footer>
     </script>
 </body>
 </html>
