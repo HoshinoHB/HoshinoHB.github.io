@@ -199,6 +199,143 @@
             color: #aaa;
             text-decoration: underline;
         }
+        /* 音乐播放器 */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            background: #1a1a1a;
+            border-radius: 50px;
+            padding: 8px 20px 8px 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            gap: 12px;
+            transition: all 0.3s ease;
+            max-width: 320px;
+        }
+        .music-player:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+        }
+        .music-cover {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid #ff88dd;
+            animation: rotateCover 8s linear infinite paused;
+        }
+        .music-cover.playing {
+            animation-play-state: running;
+        }
+        .music-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        @keyframes rotateCover {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .music-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .music-name {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .music-progress {
+            width: 100%;
+            height: 3px;
+            background: #444;
+            border-radius: 2px;
+            margin-top: 4px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .music-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff88dd, #ffbbee);
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.1s linear;
+        }
+        .music-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            padding: 0;
+        }
+        .music-btn:hover {
+            background: #fff;
+            color: #1a1a1a;
+        }
+        .music-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        .music-prev, .music-next {
+            width: 28px;
+            height: 28px;
+            border: none;
+            color: #aaa;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: transparent;
+            flex-shrink: 0;
+            transition: color 0.2s;
+            padding: 0;
+        }
+        .music-prev:hover, .music-next:hover {
+            color: #fff;
+        }
+        @media (max-width: 767px) {
+            .music-player {
+                bottom: 12px;
+                right: 12px;
+                padding: 6px 14px 6px 6px;
+                gap: 8px;
+                max-width: 260px;
+            }
+            .music-cover {
+                width: 38px;
+                height: 38px;
+            }
+            .music-name {
+                font-size: 12px;
+            }
+            .music-btn {
+                width: 32px;
+                height: 32px;
+            }
+            .music-prev, .music-next {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -248,7 +385,7 @@
         <a href="https://vlink.cc/HoshinoHB" target="_blank">Corporation. All © 2026 HoshinoHB</a> | 
         <a href="https://github.com" target="_blank">GitHub提供服务</a>
     </footer>
-    
+
     <script>
         // 蓝档案背景图片接口，
         function setBgImage() {
@@ -463,7 +600,103 @@
             renderDouyin();
             updatePageNum();
         }
-        
+
+        // ========== 音乐播放器 ==========
+        const musicList = [
+            { name: "Constant Moderato", src: "Muisc/Constant Moderato - Mitsukiyo&蔚蓝档案.mp3" },
+            { name: "Unwelcome School", src: "Muisc/Unwelcome School - Mitsukiyo&蔚蓝档案.mp3" },
+            { name: "准备出发！", src: "Muisc/准备出发！-《蔚蓝档案》大运动会主题曲 - 砂狼白子&早濑优香&黑馆晴奈&伊落玛丽&.mp3" },
+        ];
+
+        let currentMusicIndex = 0;
+        const audio = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('musicPlayBtn');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        const musicName = document.getElementById('musicName');
+        const musicCover = document.getElementById('musicCover');
+        const musicCoverImg = document.getElementById('musicCoverImg');
+        const progressBar = document.getElementById('musicProgressBar');
+        const progressContainer = document.getElementById('musicProgress');
+
+        function loadMusic(index) {
+            if (musicList.length === 0) {
+                musicName.textContent = '未添加音乐';
+                return;
+            }
+            currentMusicIndex = index;
+            const m = musicList[index];
+            audio.src = m.src;
+            musicName.textContent = m.name;
+            if (m.cover) {
+                musicCoverImg.src = m.cover;
+            }
+            audio.load();
+        }
+
+        function togglePlay() {
+            if (musicList.length === 0) return;
+            if (audio.paused) {
+                audio.play().catch(()=>{});
+            } else {
+                audio.pause();
+            }
+        }
+
+        function updatePlayState() {
+            if (audio.paused) {
+                playIcon.style.display = '';
+                pauseIcon.style.display = 'none';
+                musicCover.classList.remove('playing');
+            } else {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = '';
+                musicCover.classList.add('playing');
+            }
+        }
+
+        function prevMusic() {
+            if (musicList.length === 0) return;
+            currentMusicIndex = (currentMusicIndex - 1 + musicList.length) % musicList.length;
+            loadMusic(currentMusicIndex);
+            audio.play().catch(()=>{});
+        }
+
+        function nextMusic() {
+            if (musicList.length === 0) return;
+            currentMusicIndex = (currentMusicIndex + 1) % musicList.length;
+            loadMusic(currentMusicIndex);
+            audio.play().catch(()=>{});
+        }
+
+        function updateProgress() {
+            if (audio.duration) {
+                const pct = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = pct + '%';
+            }
+        }
+
+        function seekMusic(e) {
+            if (!audio.duration) return;
+            const rect = progressContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const pct = Math.max(0, Math.min(1, x / rect.width));
+            audio.currentTime = pct * audio.duration;
+        }
+
+        playBtn.addEventListener('click', togglePlay);
+        document.getElementById('musicPrev').addEventListener('click', prevMusic);
+        document.getElementById('musicNext').addEventListener('click', nextMusic);
+        audio.addEventListener('play', updatePlayState);
+        audio.addEventListener('pause', updatePlayState);
+        audio.addEventListener('ended', nextMusic);
+        audio.addEventListener('timeupdate', updateProgress);
+        progressContainer.addEventListener('click', seekMusic);
+
+        // 初始化加载第一首（如果有的话）
+        loadMusic(0);
+        // ========== 音乐播放器结束 ==========
+
         init();
         window.addEventListener('resize', init);
     </script>
