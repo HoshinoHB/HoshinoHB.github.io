@@ -1,7 +1,7 @@
 # 💖 HoshinoHB 专属粉丝纪念墙
 
 <p align="center">
-  <img width="650" alt="粉丝墙成品预览" src="https://github.com/HoshinoHB/HoshinoHB.github.io/blob/main/Screenshot_2026-05-31-14-53-04-17_a252b927494330cdc2c8ba3b3f952e5e.jpg">
+  <img width="650" alt="粉丝墙成品预览" src="https://github.com/HoshinoHB/HoshinoHB.github.io/blob/main/Screenshot_2026-06-26-20-35-24-68_40deb401b9ffe8e1df2f1cc5ba480b12.png">
 </p>
 
 <p align="center">
@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://hoshinohb-github-io.pages.dev//">🌐 立即进入粉丝墙</a> ·
+  <a href="https://hoshinohb.cc.cd/">🌐 立即进入粉丝墙</a> ·
   ⭐ 点个Star支持一下
 </p>
 
@@ -21,6 +21,9 @@
 永久记录所有温暖的关注与支持。
 
 全程纯前端静态开发，依托 **GitHub Pages / Cloudflare Pages** 永久免费托管，稳定在线、全球可访问。
+
+<a href="https://space.bilibili.com/3546659699034625/">B
+站主页       <a href="https://www.douyin.com/user/MS4wLjABAAAAoJZFAoBybfRZewkYLxjQy7bi0vVGIs1ra4sR0kXfgEarv2AGpRsnCtt2S-xj94-r?from_tab_name=main/">抖音主页
 
 ---
 
@@ -36,6 +39,7 @@
 | 💬 互动评论 | 适配主题的粉色Giscus评论区，支持GitHub账号留言 |
 | 📊 分页统计 | 实时展示当前页/总页数，浏览进度清晰 |
 | ⚡ 极速加载 | 零后端依赖，打开瞬间渲染完成 |
+| 👀 视觉优化 | 采用蔚蓝档案官方CG的背景图 |
 
 ---
 
@@ -47,17 +51,20 @@
 4. 等待2分钟自动构建完成
 
 ✅ 永久访问地址：
-`https://hoshinohb.github.io/`
+`https://www.hoshinohb.cc.cd/`
 
 ---
 
-## 🛠️ 小技巧
-1. **新增粉丝头像**
-打开网站在评论区输入个人的主页地址或平台账号名称，“写求上”
+## 🛠️ 参与方式
+**新增粉丝头像**
+在网站评论区留平台账号名称，或在我视频评论区/私信留言即可
 
-2. **评论后台管理**
-所有留言、点赞、回复，全部同步保存在仓库`Discussions`板块。
 
 ---
 
-## 📁 仓库文件结构
+
+## 🌏 未来发展
+
+可能随时停更，但仓库和项目会一直保留，本人是纯为兴趣做开发
+
+2027年7月1日之前如果我没有考到高中或没有能养活自己的方法将会退网一段时间，在此之后的事就留给未来的我去做吧，**愿我们能有个美好的未来**
