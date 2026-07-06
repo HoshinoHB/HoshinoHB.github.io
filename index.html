@@ -386,6 +386,26 @@
         <a href="https://github.com" target="_blank">GitHub提供服务</a>
     </footer>
 
+<!-- 音乐播放器UI -->
+<div class="music-player">
+    <button class="music-prev" id="musicPrev">❮</button>
+    <div class="music-cover" id="musicCover">
+        <img id="musicCoverImg" src="up-avatar.png" alt="音乐封面">
+    </div>
+    <div class="music-info">
+        <div class="music-name" id="musicName">加载中...</div>
+        <div class="music-progress" id="musicProgress">
+            <div class="music-progress-bar" id="musicProgressBar"></div>
+        </div>
+    </div>
+    <button class="music-btn" id="musicPlayBtn">
+        <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <button class="music-next" id="musicNext">❯</button>
+</div>
+<audio id="audioPlayer" preload="metadata">
+
     <script>
         // 蓝档案背景图片接口，
         function setBgImage() {
@@ -603,11 +623,10 @@
 
         // ========== 音乐播放器 ==========
         const musicList = [
-            { name: "Constant Moderato", src: "Muisc/Constant Moderato - Mitsukiyo&蔚蓝档案.mp3" },
-            { name: "Unwelcome School", src: "Muisc/Unwelcome School - Mitsukiyo&蔚蓝档案.mp3" },
-            { name: "准备出发！", src: "Muisc/准备出发！-《蔚蓝档案》大运动会主题曲 - 砂狼白子&早濑优香&黑馆晴奈&伊落玛丽&.mp3" },
+            { name: "Constant Moderato", src: "Muisc/Constant Moderato - Mitsukiyo&蔚蓝档案.mp3", cover: "up-avatar.png" },
+            { name: "Unwelcome School", src: "Muisc/Unwelcome School - Mitsukiyo&蔚蓝档案.mp3", cover: "up-avatar.png" },
+            { name: "准备出发！", src: "Muisc/准备出发！-《蔚蓝档案》大运动会主题曲 - 砂狼白子&早濑优香&黑馆晴奈&伊落玛丽&.mp3", cover: "up-avatar.png" },
         ];
-
         let currentMusicIndex = 0;
         const audio = document.getElementById('audioPlayer');
         const playBtn = document.getElementById('musicPlayBtn');
@@ -628,19 +647,13 @@
             const m = musicList[index];
             audio.src = m.src;
             musicName.textContent = m.name;
-            if (m.cover) {
-                musicCoverImg.src = m.cover;
-            }
+            if (m.cover) musicCoverImg.src = m.cover;
             audio.load();
         }
 
         function togglePlay() {
             if (musicList.length === 0) return;
-            if (audio.paused) {
-                audio.play().catch(()=>{});
-            } else {
-                audio.pause();
-            }
+            audio.paused ? audio.play().catch(()=>{}) : audio.pause();
         }
 
         function updatePlayState() {
@@ -671,19 +684,18 @@
 
         function updateProgress() {
             if (audio.duration) {
-                const pct = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = pct + '%';
+                progressBar.style.width = (audio.currentTime / audio.duration) * 100 + '%';
             }
         }
 
         function seekMusic(e) {
             if (!audio.duration) return;
             const rect = progressContainer.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const pct = Math.max(0, Math.min(1, x / rect.width));
+            const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
             audio.currentTime = pct * audio.duration;
         }
 
+        // 绑定所有事件
         playBtn.addEventListener('click', togglePlay);
         document.getElementById('musicPrev').addEventListener('click', prevMusic);
         document.getElementById('musicNext').addEventListener('click', nextMusic);
@@ -693,6 +705,8 @@
         audio.addEventListener('timeupdate', updateProgress);
         progressContainer.addEventListener('click', seekMusic);
 
+        // 初始化加载第一首
+        loadMusic(0);
         // ========== 音乐播放器结束 ==========
 
         init();
